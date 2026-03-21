@@ -25,10 +25,18 @@ public final class DBConnection {
     private DBConnection() {
     }
 
+    private static String envOrProperty(String envKey, String propKey) {
+        String value = System.getenv(envKey);
+        if (value != null && !value.isBlank()) {
+            return value;
+        }
+        return PROPS.getProperty(propKey);
+    }
+
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
-                PROPS.getProperty("db.url"),
-                PROPS.getProperty("db.user"),
-                PROPS.getProperty("db.password"));
+                envOrProperty("DB_URL", "db.url"),
+                envOrProperty("DB_USER", "db.user"),
+                envOrProperty("DB_PASSWORD", "db.password"));
     }
 }
