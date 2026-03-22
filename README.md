@@ -62,6 +62,32 @@ mvn clean package
 http://localhost:8080/defect-tracking-system/
 ```
 
+## Deploy Live (Render via GitHub + Managed PostgreSQL)
+
+This repository is configured for Render Blueprint deployment using `Dockerfile` and `render.yaml`.
+
+1. Push these latest changes to GitHub.
+2. In Render dashboard, click `New` -> `Blueprint`.
+3. Select this repository and branch.
+4. Render provisions both:
+	- web service: `defect-tracking-system`
+	- managed PostgreSQL: `defect-tracking-db`
+5. Render injects the database connection string into the app automatically.
+6. Open the live URL after deploy is complete.
+
+On first startup, schema and demo seed data are auto-created in PostgreSQL.
+
+### Demo Accounts (Live)
+
+- admin@dts.com / admin123
+- tester@dts.com / test123
+- dev@dts.com / dev123
+- pm@dts.com / pm123
+
+### Important Production Note
+
+Passwords are still plain text for demo purposes. For production, migrate to hashed passwords and tighten security controls.
+
 ## Sample Login Users
 
 - admin@dts.com / admin123

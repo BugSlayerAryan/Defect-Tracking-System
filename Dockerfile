@@ -29,4 +29,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
 
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/\" ${CATALINA_HOME}/conf/server.xml && exec ${CATALINA_HOME}/bin/catalina.sh run"]
